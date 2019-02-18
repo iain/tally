@@ -1,0 +1,4 @@
+--background
+--quiet
+--pattern '**/*.{rb,ru,yml}'
+--wait 30

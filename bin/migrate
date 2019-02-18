@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../config/environment"
+
+require "sequel"
+
+begin
+  require "dotenv/load"
+rescue LoadError
+  # noop
+end
+
+Sequel.extension :migration
+
+connection = Sequel.connect(ENV.fetch("DATABASE_URL"))
+migrations_dir = APP_ROOT.join("db/migrate")
+migrator = Sequel::Migrator.migrator_class(migrations_dir)
+migrator.new(connection, migrations_dir, {}).run
