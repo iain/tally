@@ -11,9 +11,10 @@ rescue LoadError
   # noop
 end
 
-Sequel.extension :migration
+Sequel.extension :migration, :core_extensions
 
-connection = Sequel.connect(ENV.fetch("DATABASE_URL"))
-migrations_dir = APP_ROOT.join("db/migrate")
-migrator = Sequel::Migrator.migrator_class(migrations_dir)
-migrator.new(connection, migrations_dir, {}).run
+connection  = Sequel.connect(ENV.fetch("DATABASE_URL"))
+migrate_dir = APP_ROOT.join("db/migrate")
+migrate_ver = nil # migrate as far as possible
+
+Sequel::Migrator.apply(connection, migrate_dir, migrate_ver)
