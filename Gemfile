@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+ruby ">= 2.5.3"
+
 gem "aws-sdk-sqs"
 gem "concurrent-ruby"
 gem "sequel"
