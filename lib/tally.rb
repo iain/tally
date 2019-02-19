@@ -17,6 +17,7 @@ module Tally
     case event_type
     when "message"
       text = data.dig("event", "text")
+      puts text.inspect
       text.scan(/(\S+)\s?\+\+/).each { |term|
         new_total = insert_vote(
           term:        term.first,
