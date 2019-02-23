@@ -3,9 +3,6 @@
 Sequel.migration do
 
   change do
-
-    run %(CREATE EXTENSION IF NOT EXISTS pgcrypto;)
-
     run %(
       CREATE OR REPLACE FUNCTION automatic_updated_at()
       RETURNS TRIGGER AS $$

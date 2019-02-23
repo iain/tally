@@ -48,12 +48,20 @@ class Tally::Web < Sinatra::Base
     # authorizes the app to access the Team's Events.
     team_id = response["team_id"]
 
-    DB[:teams].insert(
-      team_id:            team_id,
-      user_access_token:  response["access_token"],
-      bot_user_id:        response["bot"]["bot_user_id"],
-      bot_access_token:   response["bot"]["bot_access_token"],
-    )
+    begin
+      DB[:teams].insert(
+        team_id:            team_id,
+        user_access_token:  response["access_token"],
+        bot_user_id:        response["bot"]["bot_user_id"],
+        bot_access_token:   response["bot"]["bot_access_token"],
+      )
+    rescue Sequel::UniqueConstraintViolation
+      DB[:teams].where(team_id: team_id).update(
+        user_access_token:  response["access_token"],
+        bot_user_id:        response["bot"]["bot_user_id"],
+        bot_access_token:   response["bot"]["bot_access_token"],
+      )
+    end
 
     # $teams[team_id]["client"] = create_slack_client(response["bot"]["bot_access_token"])
     # Be sure to let the user know that auth succeeded.
