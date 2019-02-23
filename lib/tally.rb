@@ -29,6 +29,7 @@ module Tally
           score:       1,
         )
         send_message(
+          team,
           text: "#{term.first} got a point, current total: #{new_total}",
           channel: channel,
         )
@@ -44,6 +45,7 @@ module Tally
           score:       -1,
         )
         send_message(
+          team,
           text: "#{term.first} lost a point, current total: #{new_total}",
           channel: channel,
         )
@@ -62,9 +64,11 @@ module Tally
     DB[:votes].where(term: term, team: team).sum(:score)
   end
 
-  def self.send_message(body)
+  def self.send_message(team_id, body)
+    team = DB[:teams].where(team_id: team_id).first
+    return if team.nil?
     HTTP
-      .auth("Bearer #{ENV.fetch("BOT_USER_OAUTH_ACCESS_TOKEN")}")
+      .auth("Bearer #{team[:bot_access_token]}")
       .headers("Content-Type" => "application/json")
       .post("https://slack.com/api/chat.postMessage", body: body.to_json)
   end
