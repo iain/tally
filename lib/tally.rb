@@ -50,9 +50,21 @@ module Tally
           channel: channel,
         )
       }
+      if text.include?("leaderboard")
+        board = leaderboard(team)
+        send_message(
+          team,
+          text: board.map { |row| "#{row[:term]}: #{row[:total_score]}" }.join("\n"),
+          channel: channel,
+        )
+      end
     else
       LOGGER.debug "skipping event type #{event_type}"
     end
+  end
+
+  def self.leaderboard(team_id)
+    DB[:votes].where(team: team_id).select { [ term, sum(score).as(:total_score) ] }.order(:total_score).reverse_order.group(:term).limit(20).to_a
   end
 
   def self.handle_stats(stats)
