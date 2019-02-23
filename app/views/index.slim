@@ -1,0 +1,44 @@
+doctype html
+html lang="en"
+
+  head
+    title Tally
+
+    css:
+      html {
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        padding: 3em;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        background-color: #ccc5cd;
+      }
+      h1 {
+        color: #6c757d;
+      }
+      .container {
+        margin: 0 auto;
+        max-width: 400px;
+        border: 1px solid #6c757d;
+        border-radius: 4px;
+        padding: 0 1.5em 1em;
+        background-color: white;
+      }
+
+  body
+  
+    .container
+
+      h1 Tally
+
+      p
+        ' A super simple bot to do
+        code<> ++
+        ' and
+        code< --
+        ' .
+
+      p
+        a href="https://slack.com/oauth/authorize?scope=#{BOT_SCOPE}&client_id=#{SLACK_CONFIG[:slack_client_id]}&redirect_uri=#{SLACK_CONFIG[:redirect_uri]}"
+          img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png"
+

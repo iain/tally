@@ -10,6 +10,12 @@ gem "sequel"
 gem "pg"
 gem "http"
 
+gem "slack-ruby-client"
+
+gem "sinatra",  require: false
+gem "puma",     require: false
+gem "slim",     require: false
+
 gem "rake", require: false
 gem "sentry-raven"
 
@@ -18,4 +24,6 @@ group :development, :test do
   gem "rerun"
   gem "rspec"
   gem "dalziel"
+  gem "better_errors"
+  gem "binding_of_caller"
 end
