@@ -31,7 +31,12 @@ module Tally
         post_message(message)
       end
       @text.scan(/#{@team.bot_name} help\b/) do
-        post_message("I'm just a poor bot, though my story's seldom told.")
+        message = [
+          "I'm just a poor bot, though my story's seldom told",
+          "I'm just a poor bot, nobody loves me",
+          "I'm just a poor bot, from a poor family",
+        ].sample
+        post_message(message)
       end
     end
 
