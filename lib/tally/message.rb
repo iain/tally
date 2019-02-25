@@ -26,11 +26,11 @@ module Tally
         new_total = score(term)
         post_message("#{term} lost a point, the new score is `#{new_total}`")
       end
-      @text.scan(/\b#{@team.bot_name} leaderboard\b/) do
+      @text.scan(/#{@team.bot_name} leaderboard\b/) do
         message = leaderboard.map { |row| "#{row[:term]}: `#{row[:total_score]}`" }.join("\n")
         post_message(message)
       end
-      @text.scan(/\b#{@team.bot_name} help\b/) do
+      @text.scan(/#{@team.bot_name} help\b/) do
         post_message("I'm just a poor bot, though my story's seldom told.")
       end
     end
