@@ -7,13 +7,13 @@ require "tally/message"
 module Tally
 
   def self.handle_message(message)
-    LOGGER.info("Handling message: #{message}")
+    LOGGER.debug("Handling message: #{message}")
     data = JSON.parse(message.body)
 
     event_type = data.dig("event", "type")
 
     case event_type
-    when "message"
+    when "message", "app_mention"
       Message.new(data).call
     else
       LOGGER.debug "skipping event type #{event_type}"
