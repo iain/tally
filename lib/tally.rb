@@ -7,6 +7,7 @@ require "tally/message"
 module Tally
 
   def self.handle_message(message)
+    LOGGER.info("Handling message: #{message}")
     data = JSON.parse(message.body)
 
     event_type = data.dig("event", "type")
