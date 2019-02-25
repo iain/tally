@@ -13,7 +13,7 @@ module Tally
     event_type = data.dig("event", "type")
 
     case event_type
-    when "message", "app_mention"
+    when "message"
       Message.new(data).call
     else
       LOGGER.debug "skipping event type #{event_type}"
